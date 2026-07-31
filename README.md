@@ -1,6 +1,6 @@
 # Real-Time Systems Final Capstone — Avionics Monitoring and Fault-Tolerant Telemetry System
 
-## One Sentence
+# Theme
 A dual-core FreeRTOS avionics monitoring and telemetry system that demonstrates deterministic inter-task communication, real-time scheduling, and fault-tolerant operation using industry-standard IPC mechanisms.
 
 ---
@@ -90,4 +90,4 @@ The telemetry system is designed to continue operating safely even when faults o
 
 **Target Role:** Aerospace / Defense Embedded Systems Engineer
 
-This project demonstrates practical experience with real-time embedded software concepts that are directly applicable to aerospace and defense industries. The use of deterministic scheduling, FreeRTOS IPC primitives, WCET analysis, fault monitoring, and dual-core task partitioning reflects the types of software architecture commonly used in avionics, flight control, and mission-critical embedded systems. The project showcases both software engineering fundamentals and safety-oriented design practices expected in modern embedded aerospace applications.
+This project demonstrates practical experience with real-time embedded software concepts that are directly applicable to aerospace and defense industries. The use of deterministic scheduling, FreeRTOS IPC primitives, WCET analysis, fault monitoring, and dual-core task partitioning reflects the types of software architecture commonly used in avionics, flight control, and mission-critical embedded systems.
