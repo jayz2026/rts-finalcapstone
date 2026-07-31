@@ -1,11 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Real-Time Systems Final Capstone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Real-Time Avionics Capstone</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      color: #1f2933;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #0b1f33;
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    section {
+      background: white;
+      margin-bottom: 25px;
+      padding: 25px;
+      border-radius: 10px;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #0b1f33;
+      color: white;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Real-Time Systems Final Capstone</h1>
-  <p>Portfolio website under construction.</p>
+
+  <header>
+    <h1>Real-Time Avionics Monitoring and Fault-Tolerant Telemetry System</h1>
+
+    <p class="tagline">
+      An avionics monitoring and telemetry system that processes simulated
+      sensor data, coordinates system events, and responds to operator inputs,
+      built to demonstrate deterministic real-time scheduling, inter-task
+      communication, and fault-tolerant embedded design for a
+      Defense/Automotive Electrical Engineering role.
+    </p>
+  </header>
+
+  <main>
+
+    <section>
+      <h2>Project Overview</h2>
+
+      <p>
+        This project is the final capstone for my Real-Time Systems course.
+        It demonstrates a dual-core FreeRTOS application running on an ESP32.
+        The system models an avionics data-processing pipeline in which simulated
+        sensor readings are generated, transferred, processed, coordinated, and
+        reported through telemetry.
+      </p>
+
+      <p>
+        The application uses a FreeRTOS queue, event group, and direct task
+        notification to support communication between concurrent tasks.
+        Real-time pipeline tasks execute on Core 1, while system monitoring runs
+        separately on Core 0.
+      </p>
+
+      <p>
+        The project also includes interrupt-driven operator input, queue
+        back-pressure handling, task heartbeat monitoring, and a graceful
+        degradation path that allows the system to continue operating when a
+        telemetry packet cannot be accepted.
+      </p>
+    </section>
+
+    <section>
+      <h2>Key Features</h2>
+
+      <ul>
+        <li>Dual-core ESP32 architecture</li>
+        <li>FreeRTOS task scheduling</li>
+        <li>Typed queue for avionics sensor packets</li>
+        <li>Event-group synchronization</li>
+        <li>Direct task notifications</li>
+        <li>GPIO interrupt handling</li>
+        <li>Per-task heartbeat monitoring</li>
+        <li>Queue back-pressure and packet-drop handling</li>
+        <li>Serial and web monitoring options</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>System Pipeline</h2>
+
+      <p>
+        The sensor producer creates simulated altitude data and places each
+        packet into a FreeRTOS queue. The fusion task receives the packet,
+        applies a simulated correction, and stores the latest processed result.
+        Event-group bits indicate when production and processing are complete.
+        The telemetry coordinator waits for both events and then notifies the
+        cockpit responder task.
+      </p>
+
+      <p>
+        A separate monitoring task displays queue depth, event bits, task
+        heartbeats, and the most recently processed avionics packet.
+      </p>
+    </section>
+
+    <section>
+      <h2>Target Role</h2>
+
+      <p>
+        This project is tailored toward Defense and Automotive Electrical
+        Engineering roles. It emphasizes deterministic scheduling, interrupt
+        handling, multicore task organization, system monitoring, timing
+        evidence, fault containment, and continued operation under degraded
+        conditions.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    Real-Time Systems Final Capstone
+  </footer>
+
 </body>
 </html>
