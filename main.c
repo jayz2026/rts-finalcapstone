@@ -1,4 +1,3 @@
-/*
  * Application 5 — Dual-core IPC pipeline
  *
  * Scaffold level: ~65% (the pipeline logic is yours; the infrastructure is provided).
@@ -110,6 +109,9 @@ static TaskHandle_t       responder_handle;
 /* Per-task heartbeats — proof of life for the monitor. Single 32-bit reads are
  * atomic on Xtensa, so the monitor can read these without a lock (App 6's topic). */
 static volatile uint32_t hb_prod, hb_cons, hb_coord, hb_resp;
+static int64_t producer_wcet_us = 0;
+static int64_t consumer_wcet_us = 0;
+static int64_t monitor_wcet_us = 0;
 static avionics_data_t last_item;
 static volatile bool last_item_valid = false;
 /* ---------- Producer task (Core 1) ----------
@@ -122,6 +124,7 @@ static void producer_task(void *arg)
     for (;;) {
         /* TODO: build a themed data item.
          * Suggested struct: { uint32_t timestamp_ms; int value; } */
+         int64_t start = esp_timer_get_time();
          packet.timestamp_ms = esp_timer_get_time() / 1000;
          packet.sequence = tick;
          packet.sensor_id = 1;
@@ -144,7 +147,12 @@ else
              "[producer] Telemetry queue full. Packet dropped.");
 }
         xEventGroupSetBits(evt_group, EV_BIT_DATA_PRODUCED);
+int64_t end = esp_timer_get_time();
 
+if ((end - start) > producer_wcet_us)
+{
+    producer_wcet_us = end - start;
+}
         tick++;
         hb_prod++;
         vTaskDelay(pdMS_TO_TICKS(50));   /* 20 Hz producer */
@@ -162,6 +170,7 @@ static void consumer_task(void *arg)
          * The delay below only keeps the scaffold from busy-spinning (and
          * starving Core 1's idle task) until you wire the queue up — a real
          * xQueueReceive blocks on its own, so delete this line when you add it. */
+         int64_t start = esp_timer_get_time();
         BaseType_t received = xQueueReceive(
         data_q,
         &received_packet,
@@ -184,6 +193,12 @@ static void consumer_task(void *arg)
         last_item = received_packet;
         last_item_valid = true;
         xEventGroupSetBits(evt_group, EV_BIT_DATA_PROCESSED);
+        int64_t end = esp_timer_get_time();
+
+if ((end - start) > consumer_wcet_us)
+{
+    consumer_wcet_us = end - start;
+}
         hb_cons++;
     }
 }
@@ -508,6 +523,8 @@ static void serial_monitor_task(void *arg)
 {
     for (;;)
     {
+        int64_t start = esp_timer_get_time();
+
         UBaseType_t depth = uxQueueMessagesWaiting(data_q);
         EventBits_t bits = xEventGroupGetBits(evt_group);
 
@@ -521,6 +538,14 @@ static void serial_monitor_task(void *arg)
                  (unsigned long)hb_coord,
                  (unsigned long)hb_resp);
 
+        ESP_LOGI(TAG,
+                 "[WCET] Producer = %lld us",
+                 producer_wcet_us);
+
+        ESP_LOGI(TAG,
+                 "[WCET] Consumer = %lld us",
+                 consumer_wcet_us);
+
         if (last_item_valid)
         {
             ESP_LOGI(TAG,
@@ -530,6 +555,17 @@ static void serial_monitor_task(void *arg)
                      last_item.value,
                      (unsigned long)last_item.timestamp_ms);
         }
+
+        int64_t end = esp_timer_get_time();
+
+        if ((end - start) > monitor_wcet_us)
+        {
+            monitor_wcet_us = end - start;
+        }
+
+        ESP_LOGI(TAG,
+                 "[WCET] Monitor = %lld us",
+                 monitor_wcet_us);
 
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
