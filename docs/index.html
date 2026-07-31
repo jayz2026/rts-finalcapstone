@@ -141,7 +141,81 @@
         conditions.
       </p>
     </section>
+<section>
+    <h2>System Architecture Diagram</h2>
 
+    <img src="../architecture.png" alt="Architecture Diagram"
+         style="max-width:100%; border:1px solid #ccc; border-radius:8px;">
+
+    <p>
+        The system is organized as a producer-consumer pipeline. Sensor data is
+        generated, processed, synchronized using event groups, and finally
+        delivered through telemetry while a monitoring task executes
+        independently on Core 0.
+    </p>
+</section>
+
+<section>
+    <h2>WCET Evidence</h2>
+
+    <img src="../WCT &amp; Task Table.png" alt="WCET Task Table"
+         style="max-width:100%; border:1px solid #ccc; border-radius:8px;">
+
+    <p>
+        Worst-Case Execution Time (WCET) measurements were collected for the
+        producer, consumer, and monitoring tasks. The measured utilization
+        satisfies the Rate-Monotonic scheduling bound, demonstrating that the
+        system is schedulable.
+    </p>
+</section>
+
+<section>
+    <h2>Hazard Analysis</h2>
+
+    <img src="../Hazard analysis.png" alt="Hazard Analysis"
+         style="max-width:100%; border:1px solid #ccc; border-radius:8px;">
+
+    <p>
+        The hazard analysis identifies possible failures, their effects on the
+        telemetry system, and the mitigation strategies implemented to maintain
+        safe operation.
+    </p>
+</section>
+
+<section>
+    <h2>Final Reflection</h2>
+
+    <p>
+        Read the complete reflection describing the lessons learned throughout
+        the project:
+    </p>
+
+    <a href="../Final_Reflection.md" target="_blank">
+        View Final Reflection
+    </a>
+</section>
+
+<section>
+    <h2>Recruiter Information</h2>
+
+    <ul>
+        <li>Embedded C</li>
+        <li>ESP-IDF</li>
+        <li>FreeRTOS</li>
+        <li>Dual-Core Programming</li>
+        <li>Queues</li>
+        <li>Event Groups</li>
+        <li>Direct Task Notifications</li>
+        <li>WCET Analysis</li>
+        <li>Fault-Tolerant Embedded Systems</li>
+        <li>Embedded Debugging</li>
+    </ul>
+
+    <p>
+        This project demonstrates practical experience applicable to aerospace,
+        defense, automotive, robotics, and industrial embedded software roles.
+    </p>
+</section>
   </main>
 
   <footer>
