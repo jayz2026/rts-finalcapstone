@@ -90,4 +90,7 @@ The telemetry system is designed to continue operating safely even when faults o
 
 **Target Role:** Aerospace / Defense Embedded Systems Engineer
 
+## Reflection
+- 📄 Final Reflection: [Final_Reflection.docx](Final_Reflection.docx)
+
 This project demonstrates practical experience with real-time embedded software concepts that are directly applicable to aerospace and defense industries. The use of deterministic scheduling, FreeRTOS IPC primitives, WCET analysis, fault monitoring, and dual-core task partitioning reflects the types of software architecture commonly used in avionics, flight control, and mission-critical embedded systems.
