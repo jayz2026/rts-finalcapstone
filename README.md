@@ -94,3 +94,43 @@ The telemetry system is designed to continue operating safely even when faults o
 - 📄 Final Reflection: [Final_Reflection.docx](Final_Reflection.docx)
 
 This project demonstrates practical experience with real-time embedded software concepts that are directly applicable to aerospace and defense industries. The use of deterministic scheduling, FreeRTOS IPC primitives, WCET analysis, fault monitoring, and dual-core task partitioning reflects the types of software architecture commonly used in avionics, flight control, and mission-critical embedded systems.
+
+# Recruiter aimed portfolio section
+
+## Technical Skills Demonstrated
+
+- Embedded C
+- ESP-IDF
+- FreeRTOS
+- Dual-Core Programming
+- Real-Time Scheduling
+- Inter-Task Communication (IPC)
+- Heartbeat monitoring
+- Queues
+- Event Groups
+- Direct Task Notifications
+- Worst-Case Execution Time (WCET) Analysis
+- Fault Detection
+- Embedded Debugging
+- GitHub
+- GitHub Pages
+
+## Target Industries
+
+This project demonstrates skills applicable to:
+
+- Aerospace/Avionics
+- Defense
+- Automotive
+
+## Engineering Concepts
+
+This project demonstrates experience with:
+
+- Deterministic task scheduling
+- Producer-consumer pipelines
+- Multi-core embedded software
+- Real-time communication
+- Fault detection and graceful degradation
+- Software architecture
+- Embedded timing analysis
